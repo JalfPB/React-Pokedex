@@ -1,4 +1,6 @@
+import { useState } from "react"; // Importamos useState
 import { PokemonCard } from "./PokemonCard";
+import "../styles/PokemonList.css";
 
 const pokemons = [
   {
@@ -292,11 +294,80 @@ const pokemons = [
 ];
 
 export function PokemonList() {
+  const [filteredType, setFilteredType] = useState("");
+
+  const handleFilter = (type) => setFilteredType(type);
+
+  const visiblePokemons = filteredType
+    ? pokemons.filter((p) => p.type.includes(filteredType))
+    : pokemons;
+
   return (
     <>
-      {pokemons.map((pokemon, index) => (
-        <PokemonCard key={index} pokemon={pokemon} />
-      ))}
+      {/* Contenedor para los botones de filtro */}
+      <div id="filter-buttons">
+        <button
+          className={filteredType === "" ? "active" : ""}
+          onClick={() => handleFilter("")}
+        >
+          All
+        </button>
+        <button
+          className={filteredType === "Fire" ? "active" : ""}
+          onClick={() => handleFilter("Fire")}
+        >
+          Fire
+        </button>
+        <button
+          className={filteredType === "Water" ? "active" : ""}
+          onClick={() => handleFilter("Water")}
+        >
+          Water
+        </button>
+        <button
+          className={filteredType === "Grass" ? "active" : ""}
+          onClick={() => handleFilter("Grass")}
+        >
+          Grass
+        </button>
+        <button
+          className={filteredType === "Electric" ? "active" : ""}
+          onClick={() => handleFilter("Electric")}
+        >
+          Electric
+        </button>
+        <button
+          className={filteredType === "Normal" ? "active" : ""}
+          onClick={() => handleFilter("Normal")}
+        >
+          Normal
+        </button>
+        <button
+          className={filteredType === "Poison" ? "active" : ""}
+          onClick={() => handleFilter("Poison")}
+        >
+          Poison
+        </button>
+        <button
+          className={filteredType === "Psychic" ? "active" : ""}
+          onClick={() => handleFilter("Psychic")}
+        >
+          Psychic
+        </button>
+        <button
+          className={filteredType === "Fighting" ? "active" : ""}
+          onClick={() => handleFilter("Fighting")}
+        >
+          Fighting
+        </button>
+      </div>
+
+      {/* Renderizamos la lista de Pokémon filtrados */}
+      <div id="pokemonList">
+        {visiblePokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </div>
     </>
   );
 }
