@@ -62,10 +62,10 @@ export function PokemonCard({ pokemon }) {
 // Validación de las props con PropTypes
 PokemonCard.propTypes = {
   pokemon: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
     stats: PropTypes.shape({
       hp: PropTypes.number.isRequired,
       attack: PropTypes.number.isRequired,

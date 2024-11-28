@@ -1,302 +1,97 @@
+import { useState, useEffect } from "react";
 import { PokemonCard } from "./PokemonCard";
-
-const pokemons = [
-  {
-    id: 25,
-    name: "Pikachu",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-    type: "Electric",
-    stats: {
-      hp: 35,
-      attack: 55,
-      defense: 40,
-      speed: 90,
-      specialAttack: 90,
-      specialDefense: 190,
-    },
-    color: "rgba(255, 215, 0, 0.8)", // Color amarillo dorado
-  },
-  {
-    id: 1,
-    name: "Bulbasaur",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-    type: "Grass/Poison",
-    stats: {
-      hp: 45,
-      attack: 49,
-      defense: 49,
-      speed: 45,
-      specialAttack: 65,
-      specialDefense: 65,
-    },
-    color: "rgba(34, 139, 34, 0.8)", // Color verde
-  },
-  {
-    id: 4,
-    name: "Charmander",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-    type: "Fire",
-    stats: {
-      hp: 39,
-      attack: 52,
-      defense: 43,
-      speed: 65,
-      specialAttack: 60,
-      specialDefense: 50,
-    },
-    color: "rgba(255, 69, 0, 0.8)", // Color naranja fuego
-  },
-  {
-    id: 7,
-    name: "Squirtle",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-    type: "Water",
-    stats: {
-      hp: 44,
-      attack: 48,
-      defense: 65,
-      speed: 43,
-      specialAttack: 50,
-      specialDefense: 64,
-    },
-    color: "rgba(0, 191, 255, 0.8)", // Color azul
-  },
-  {
-    id: 39,
-    name: "Jigglypuff",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png",
-    type: "Normal/Fairy",
-    stats: {
-      hp: 115,
-      attack: 45,
-      defense: 20,
-      speed: 20,
-      specialAttack: 45,
-      specialDefense: 25,
-    },
-    color: "rgba(255, 182, 193, 0.8)", // Color rosa
-  },
-  {
-    id: 52,
-    name: "Meowth",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/52.png",
-    type: "Normal",
-    stats: {
-      hp: 40,
-      attack: 45,
-      defense: 35,
-      speed: 90,
-      specialAttack: 40,
-      specialDefense: 50,
-    },
-    color: "rgba(255, 223, 186, 0.8)", // Color beige
-  },
-  {
-    id: 54,
-    name: "Psyduck",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/54.png",
-    type: "Water",
-    stats: {
-      hp: 50,
-      attack: 52,
-      defense: 48,
-      speed: 55,
-      specialAttack: 65,
-      specialDefense: 50,
-    },
-    color: "rgba(255, 255, 85, 0.8)", // Color amarillo
-  },
-  {
-    id: 133,
-    name: "Eevee",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png",
-    type: "Normal",
-    stats: {
-      hp: 55,
-      attack: 55,
-      defense: 50,
-      speed: 55,
-      specialAttack: 45,
-      specialDefense: 50,
-    },
-    color: "rgba(139, 69, 19, 0.8)", // Color marrón
-  },
-  {
-    id: 143,
-    name: "Snorlax",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
-    type: "Normal",
-    stats: {
-      hp: 160,
-      attack: 110,
-      defense: 65,
-      speed: 30,
-      specialAttack: 65,
-      specialDefense: 110,
-    },
-    color: "rgba(0, 128, 0, 0.8)", // Color verde oscuro
-  },
-  {
-    id: 94,
-    name: "Gengar",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png",
-    type: "Ghost/Poison",
-    stats: {
-      hp: 60,
-      attack: 65,
-      defense: 60,
-      speed: 110,
-      specialAttack: 130,
-      specialDefense: 75,
-    },
-    color: "rgba(102, 51, 153, 0.8)", // Color morado
-  },
-  {
-    id: 65,
-    name: "Alakazam",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/65.png",
-    type: "Psychic",
-    stats: {
-      hp: 55,
-      attack: 50,
-      defense: 45,
-      speed: 120,
-      specialAttack: 135,
-      specialDefense: 85,
-    },
-    color: "rgba(255, 255, 0, 0.8)", // Color amarillo
-  },
-  {
-    id: 66,
-    name: "Machop",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/066.png",
-    type: "Fighting",
-    stats: {
-      hp: 70,
-      attack: 80,
-      defense: 50,
-      speed: 35,
-      specialAttack: 35,
-      specialDefense: 35,
-    },
-    color: "rgba(255, 0, 0, 0.8)", // Color rojo
-  },
-  {
-    id: 95,
-    name: "Onix",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/95.png",
-    type: "Rock/Ground",
-    stats: {
-      hp: 35,
-      attack: 45,
-      defense: 160,
-      speed: 70,
-      specialAttack: 30,
-      specialDefense: 45,
-    },
-    color: "rgba(169, 169, 169, 0.8)", // Color gris
-  },
-  {
-    id: 108,
-    name: "Lickitung",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/108.png",
-    type: "Normal",
-    stats: {
-      hp: 90,
-      attack: 55,
-      defense: 75,
-      speed: 30,
-      specialAttack: 60,
-      specialDefense: 75,
-    },
-    color: "rgba(255, 105, 180, 0.8)", // Color rosa
-  },
-  {
-    id: 106,
-    name: "Hitmonlee",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/106.png",
-    type: "Fighting",
-    stats: {
-      hp: 50,
-      attack: 120,
-      defense: 53,
-      speed: 87,
-      specialAttack: 35,
-      specialDefense: 35,
-    },
-    color: "rgba(255, 140, 0, 0.8)", // Color naranja
-  },
-  {
-    id: 34,
-    name: "Nidoking",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png",
-    type: "Poison/Ground",
-    stats: {
-      hp: 81,
-      attack: 92,
-      defense: 77,
-      speed: 85,
-      specialAttack: 75,
-      specialDefense: 85,
-    },
-    color: "rgba(128, 0, 128, 0.8)", // Color púrpura
-  },
-  {
-    id: 31,
-    name: "Nidoqueen",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/31.png",
-    type: "Poison/Ground",
-    stats: {
-      hp: 90,
-      attack: 82,
-      defense: 87,
-      speed: 76,
-      specialAttack: 75,
-      specialDefense: 85,
-    },
-    color: "rgba(0, 128, 128, 0.8)", // Color verde azulado
-  },
-  {
-    id: 92,
-    name: "Gastly",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/92.png",
-    type: "Ghost/Poison",
-    stats: {
-      hp: 30,
-      attack: 35,
-      defense: 30,
-      speed: 80,
-      specialAttack: 100,
-      specialDefense: 35,
-    },
-    color: "rgba(102, 0, 204, 0.8)", // Color morado oscuro
-  },
-];
+import { getPokemonList, getPokemonDetails } from "../services/api";
+//import "../styles/PokemonList.css";
 
 export function PokemonList() {
+  const [pokemon, setPokemon] = useState([]); // Lista de Pokémon
+  const [loading, setLoading] = useState(true); // Estado de carga
+
+  // Función para transformar los datos de la API al formato esperado por `PokemonCard`
+  const mapPokemonData = (pokemonData) => {
+    return {
+      id: pokemonData.id,
+      name: pokemonData.name,
+      image: pokemonData.sprites.other["official-artwork"].front_default,
+      type: pokemonData.types.map((type) => type.type.name).join("/"),
+      stats: {
+        hp: pokemonData.stats[0].base_stat,
+        attack: pokemonData.stats[1].base_stat,
+        defense: pokemonData.stats[2].base_stat,
+        speed: pokemonData.stats[5].base_stat,
+        specialAttack: pokemonData.stats[3].base_stat,
+        specialDefense: pokemonData.stats[4].base_stat,
+      },
+      color: getTypeColor(pokemonData.types[0].type.name), // Colores según el tipo
+    };
+  };
+
+  // Función para obtener la lista y los detalles de los Pokémon
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const pokemonList = await getPokemonList(); // Obtenemos la lista de Pokémon
+        const detailedPokemon = await Promise.all(
+          pokemonList.map(async (pokemon) => {
+            const details = await getPokemonDetails(pokemon.url); // Obtenemos detalles de cada Pokémon
+            return mapPokemonData(details); // Transformamos los datos
+          })
+        );
+        setPokemon(detailedPokemon); // Actualizamos el estado con los datos completos
+        setLoading(false); // Marcamos que terminó la carga
+      } catch (error) {
+        console.error("Error al cargar los Pokémon:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Cargando Pokémon...</div>;
+  }
+
   return (
-    <>
-      {pokemons.map((pokemon, index) => (
-        <PokemonCard key={index} pokemon={pokemon} />
+    <div className="pokemon-list">
+      {pokemon.map((poke, index) => (
+        <PokemonCard key={index} pokemon={poke} />
       ))}
-    </>
+    </div>
   );
 }
+
+// Función para obtener el color según el tipo del Pokémon
+// Función para obtener el color según el tipo del Pokémon
+const getTypeColor = (types) => {
+    // Definimos los colores de los tipos
+    const typeColors = {
+      Fire: "rgba(255, 69, 0, 0.8)",
+      Water: "rgba(0, 191, 255, 0.8)",
+      Grass: "rgba(34, 139, 34, 0.8)",
+      Electric: "rgba(255, 215, 0, 0.8)",
+      Psychic: "rgba(255, 0, 255, 0.8)",
+      Normal: "rgba(255, 223, 186, 0.8)",
+      Fairy: "rgba(255, 182, 193, 0.8)",
+      Ghost: "rgba(102, 0, 204, 0.8)",
+      Rock: "rgba(169, 169, 169, 0.8)",
+      Fighting: "rgba(255, 0, 0, 0.8)",
+      Poison: "rgba(128, 0, 128, 0.8)",
+      Ground: "rgba(210, 180, 140, 0.8)",
+      Ice: "rgba(173, 216, 230, 0.8)",
+      Dragon: "rgba(72, 61, 139, 0.8)",
+      Dark: "rgba(47, 79, 79, 0.8)",
+      Steel: "rgba(192, 192, 192, 0.8)",
+      Bug: "rgba(173, 255, 47, 0.8)",
+      Flying: "rgba(135, 206, 235, 0.8)",
+    };
+  
+    // Si 'types' es un array, podemos obtener el color para cada tipo y hacer un gradiente o combinar los colores
+    if (Array.isArray(types)) {
+      const colors = types.map(type => typeColors[type] || "rgba(128, 128, 128, 0.8)");
+      return colors.length > 1 ? `linear-gradient(45deg, ${colors.join(', ')})` : colors[0];
+    }
+  
+    // Si solo es un tipo, retornamos el color correspondiente
+    return typeColors[types] || "rgba(128, 128, 128, 0.8)"; // Color por defecto si no coincide
+  };
+  
